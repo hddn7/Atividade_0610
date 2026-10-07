@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Excluir usuário</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Excluir usuário</h1>
+      <a href="/" class="back-link">Voltar</a>
+
+      <form id="deleteForm" class="card inline-form">
+        <label>
+          ID do usuário
+          <input type="number" id="userId" min="1" required />
+        </label>
+        <button type="submit">Excluir</button>
+      </form>
+
+      <p id="message" class="message"></p>
+    </main>
+
+    <script>
+      const deleteForm = document.getElementById('deleteForm');
+      const message = document.getElementById('message');
+
+      deleteForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const id = document.getElementById('userId').value;
+        const response = await fetch(`/api/users/${id}`, { method: 'DELETE' });
+        const result = await response.json();
+
+        if (!response.ok) {
+          message.textContent = result.message || 'Erro ao excluir usuário.';
+          message.classList.add('error');
+          return;
+        }
+
+        message.textContent = result.message;
+        message.classList.remove('error');
+        deleteForm.reset();
+      });
+    </script>
+  </body>
+</html>

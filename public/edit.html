@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar usuário</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Editar usuário</h1>
+      <a href="/" class="back-link">Voltar</a>
+
+      <form id="searchForm" class="card inline-form">
+        <label>
+          ID do usuário
+          <input type="number" id="userId" min="1" required />
+        </label>
+        <button type="submit">Carregar</button>
+      </form>
+
+      <form id="editForm" class="card">
+        <label>
+          Nome
+          <input type="text" name="nome" required />
+        </label>
+        <label>
+          Sobrenome
+          <input type="text" name="sobrenome" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Idade
+          <input type="number" name="idade" min="0" required />
+        </label>
+
+        <button type="submit">Salvar alterações</button>
+      </form>
+
+      <p id="message" class="message"></p>
+    </main>
+
+    <script>
+      const searchForm = document.getElementById('searchForm');
+      const editForm = document.getElementById('editForm');
+      const userIdInput = document.getElementById('userId');
+      const message = document.getElementById('message');
+
+      searchForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const id = userIdInput.value;
+
+        const response = await fetch(`/api/users/${id}`);
+        const user = await response.json();
+
+        if (!response.ok) {
+          message.textContent = user.message || 'Usuário não encontrado.';
+          message.classList.add('error');
+          return;
+        }
+
+        Object.entries(user).forEach(([key, value]) => {
+          if (editForm.elements[key]) {
+            editForm.elements[key].value = value;
+          }
+        });
+
+        message.textContent = 'Usuário carregado para edição.';
+        message.classList.remove('error');
+      });
+
+      editForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const id = userIdInput.value;
+        const payload = Object.fromEntries(new FormData(editForm).entries());
+
+        const response = await fetch(`/api/users/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          message.textContent = result.message || 'Erro ao atualizar usuário.';
+          message.classList.add('error');
+          return;
+        }
+
+        message.textContent = `Usuário ${result.nome} atualizado com sucesso.`;
+        message.classList.remove('error');
+      });
+    </script>
+  </body>
+</html>

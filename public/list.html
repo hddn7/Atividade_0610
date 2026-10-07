@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listar usuários</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Lista de usuários</h1>
+      <a href="/" class="back-link">Voltar</a>
+      <button id="loadUsers" class="secondary-button">Carregar usuários</button>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Email</th>
+            <th>Idade</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody"></tbody>
+      </table>
+    </main>
+
+    <script>
+      const loadButton = document.getElementById('loadUsers');
+      const usersTableBody = document.getElementById('usersTableBody');
+
+      loadButton.addEventListener('click', async () => {
+        const response = await fetch('/api/users');
+        const users = await response.json();
+
+        usersTableBody.innerHTML = users
+          .map(
+            (user) => `
+              <tr>
+                <td>${user.id}</td>
+                <td>${user.nome}</td>
+                <td>${user.sobrenome}</td>
+                <td>${user.email}</td>
+                <td>${user.idade}</td>
+              </tr>
+            `
+          )
+          .join('');
+      });
+    </script>
+  </body>
+</html>

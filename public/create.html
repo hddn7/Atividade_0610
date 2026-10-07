@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastrar usuário</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Cadastro</h1>
+      <a href="/" class="back-link">Voltar</a>
+
+      <form id="userForm" class="card">
+        <label>
+          Nome
+          <input type="text" name="nome" required />
+        </label>
+        <label>
+          Sobrenome
+          <input type="text" name="sobrenome" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Idade
+          <input type="number" name="idade" min="0" required />
+        </label>
+
+        <button type="submit">Adicionar</button>
+      </form>
+
+      <p id="message" class="message"></p>
+    </main>
+
+    <script>
+      const form = document.getElementById('userForm');
+      const message = document.getElementById('message');
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const payload = Object.fromEntries(new FormData(form).entries());
+
+        const response = await fetch('/api/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          message.textContent = result.message || 'Erro ao cadastrar usuário.';
+          message.classList.add('error');
+          return;
+        }
+
+        message.textContent = `Usuário ${result.nome} cadastrado com sucesso.`;
+        message.classList.remove('error');
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
