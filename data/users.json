@@ -4,13 +4,51 @@
     "nome": "Maria",
     "sobrenome": "Silva",
     "email": "maria@email.com",
-    "idade": 28
+    "idade": 28,
+    "telefone": "11999999999",
+    "rua": "Avenida Paulista",
+    "bairro": "Centro",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "rg": "12345678"
   },
   {
     "id": 2,
     "nome": "João",
     "sobrenome": "Costa",
     "email": "joao@email.com",
-    "idade": 31
+    "idade": 31,
+    "telefone": "11888888888",
+    "rua": "Rua das Flores",
+    "bairro": "Jardim",
+    "cidade": "Campinas",
+    "estado": "SP",
+    "rg": "87654321"
+  },
+  {
+    "id": 3,
+    "nome": "Maria",
+    "sobrenome": "Silva",
+    "email": "maria@email.com",
+    "idade": 28,
+    "telefone": "11999999999",
+    "rua": "Avenida Paulista",
+    "bairro": "Centro",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "rg": "12345678"
+  },
+  {
+    "id": 4,
+    "nome": "João",
+    "sobrenome": "Costa",
+    "email": "joao@email.com",
+    "idade": 31,
+    "telefone": "11999999999",
+    "rua": "Rua Nova",
+    "bairro": "Centro",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "rg": "87654321"
   }
 ]

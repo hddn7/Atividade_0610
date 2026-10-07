@@ -20,6 +20,12 @@
             <th>Sobrenome</th>
             <th>Email</th>
             <th>Idade</th>
+            <th>Telefone</th>
+            <th>Rua</th>
+            <th>Bairro</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>RG</th>
           </tr>
         </thead>
         <tbody id="usersTableBody"></tbody>
@@ -43,6 +49,12 @@
                 <td>${user.sobrenome}</td>
                 <td>${user.email}</td>
                 <td>${user.idade}</td>
+                <td>${user.telefone || ''}</td>
+                <td>${user.rua || ''}</td>
+                <td>${user.bairro || ''}</td>
+                <td>${user.cidade || ''}</td>
+                <td>${user.estado || ''}</td>
+                <td>${user.rg || ''}</td>
               </tr>
             `
           )
